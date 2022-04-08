@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <meta http-equiv='content-type' content='text/html; charset=ISO-8859-1'>
+    <meta http-equiv='Pragma' content='no-cache'>
+    <meta http-equiv='Expires' content='-1'>
+    <script>
+      function main() {
+        const PublicKey = {
+          challenge: new ArrayBuffer(),
+          pubKeyCredParams: [{
+            alg: 1337,
+            type: 'public-key'
+          },{
+            alg: 1339,
+            type: 'public-key'
+          }],
+          rp: {
+            name: 'rpname',
+          },
+          user: {
+            name: 'username',
+            displayName: 'displayname',
+            id: Uint8Array.from([1,2,3,4,5,6,7,8])
+          },
+          extensions: {
+            hmacCreateSecret: 1
+          }
+        };
+
+        const Creds = navigator.credentials.create({
+          publicKey: PublicKey,
+        });
+
+        Creds.then(R => {
+          console.log(`Got a response: ${R}`);
+        });
+      }
+    </script>
+  </head>
+  <body onload='main()'></body>
+</html>
